@@ -1,4 +1,5 @@
-﻿using Products_API.DTOs;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Products_API.DTOs;
 using Products_API.Model;
 using Products_API.Repository;
 
@@ -24,6 +25,11 @@ namespace Products_API.Services
             await _repository.Save();
         }
 
+        public Task Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<ProductDto>> Get()
         {
             var products = await _repository.Get();
@@ -44,6 +50,18 @@ namespace Products_API.Services
                 Price = product.Price,
                 BrandId = product.BrandId
             };
+        }
+
+        public async Task Update(int id, ProductDto productDto)
+        {
+            Product product = await _repository.GetById(id);
+            if (product == null)
+                throw new ArgumentNullException();
+            product.Name = productDto.Name;
+            product.Price = productDto.Price;
+            product.BrandId = productDto.BrandId;
+            _repository.Update(product);
+            await _repository.Save();
         }
     }
 }

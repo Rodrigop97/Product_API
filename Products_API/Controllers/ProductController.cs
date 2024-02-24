@@ -33,5 +33,13 @@ namespace Products_API.Controllers
             await _productService.Add(productDto);
             return Ok();
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, ProductDto productDto)
+        {
+            await _productService.Update(id, productDto);
+            return Ok();
+        }
+            
     }
 }

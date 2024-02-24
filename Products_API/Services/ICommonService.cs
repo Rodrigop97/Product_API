@@ -7,5 +7,7 @@ namespace Products_API.Services
         Task<IEnumerable<DTO>> Get();
         Task<DTO> GetById(int id);
         Task Add(DTO dto);
+        Task Update(int id, DTO dto);
+        Task Delete(int id);
     }
 }

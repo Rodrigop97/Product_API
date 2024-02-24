@@ -21,9 +21,10 @@ namespace Products_API.Repository
         public async Task Add(Product product)
             => await _storeContext.Products.AddAsync(product);
 
-        public void Update(Product entity)
+        public void Update(Product product)
         {
-            throw new NotImplementedException();
+            _storeContext.Products.Attach(product);
+            _storeContext.Products.Entry(product).State = EntityState.Modified;
         }
 
         public void Delete(Product entity)

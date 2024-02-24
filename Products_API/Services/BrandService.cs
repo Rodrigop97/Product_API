@@ -18,12 +18,22 @@ namespace Products_API.Services
             await _brandRepository.Save();
         }
 
+        public Task Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<BrandDto>> Get()
         {
             throw new NotImplementedException();
         }
 
         public Task<BrandDto> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Update(int id, BrandDto dto)
         {
             throw new NotImplementedException();
         }
