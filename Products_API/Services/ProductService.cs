@@ -21,13 +21,16 @@ namespace Products_API.Services
                 Price = productDto.Price,
                 BrandId = productDto.BrandId
             };
-            await _repository.Add(product);
-            await _repository.Save();
-        }
+            try
+            {
+                await _repository.Add(product);
+                await _repository.Save();
+            }
+            catch (Exception ex)
+            {
 
-        public Task Delete(int id)
-        {
-            throw new NotImplementedException();
+                throw ex;
+            }
         }
 
         public async Task<IEnumerable<ProductDto>> Get()
@@ -52,16 +55,27 @@ namespace Products_API.Services
             };
         }
 
-        public async Task Update(int id, ProductDto productDto)
+        public async Task<bool> Update(int id, ProductDto productDto)
         {
             Product product = await _repository.GetById(id);
             if (product == null)
-                throw new ArgumentNullException();
+                return false;
             product.Name = productDto.Name;
             product.Price = productDto.Price;
             product.BrandId = productDto.BrandId;
             _repository.Update(product);
             await _repository.Save();
+            return true;
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            Product product = await _repository.GetById(id);
+            if (product == null)
+                return false;
+            _repository.Delete(product);
+            await _repository.Save();
+            return true;
         }
     }
 }

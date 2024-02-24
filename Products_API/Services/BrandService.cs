@@ -37,5 +37,15 @@ namespace Products_API.Services
         {
             throw new NotImplementedException();
         }
+
+        Task<bool> ICommonService<BrandDto>.Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> ICommonService<BrandDto>.Update(int id, BrandDto dto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

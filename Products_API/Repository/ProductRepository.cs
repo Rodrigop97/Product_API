@@ -16,7 +16,7 @@ namespace Products_API.Repository
             => await _storeContext.Products.ToListAsync();
 
         public async Task<Product> GetById(int id)
-            => await _storeContext.Products.FirstAsync(x => x.Id == id);
+            => await _storeContext.Products.FindAsync(id);
 
         public async Task Add(Product product)
             => await _storeContext.Products.AddAsync(product);
@@ -27,10 +27,8 @@ namespace Products_API.Repository
             _storeContext.Products.Entry(product).State = EntityState.Modified;
         }
 
-        public void Delete(Product entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Delete(Product product)
+            => _storeContext.Products.Remove(product);
 
         public async Task Save()
             => await _storeContext.SaveChangesAsync();

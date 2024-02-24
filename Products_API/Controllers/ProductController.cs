@@ -37,9 +37,17 @@ namespace Products_API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, ProductDto productDto)
         {
-            await _productService.Update(id, productDto);
-            return Ok();
+            if (await _productService.Update(id, productDto))
+                return Ok();
+            return BadRequest();
         }
-            
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (await _productService.Delete(id))
+                return Ok();
+            return BadRequest();
+        }
     }
 }
