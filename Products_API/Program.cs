@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Products_API.DTOs;
 using Products_API.Model;
 using Products_API.Repository;
@@ -9,9 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddKeyedScoped<ICommonService<ProductDto>, ProductService>("productService");
+builder.Services.AddKeyedScoped<ICommonService<BrandDto>, BrandService>("brandService");
 
 // Repository
-builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
+builder.Services.AddKeyedScoped<IRepository<Product>, ProductRepository>("productRepository");
+builder.Services.AddKeyedScoped<IRepository<Brand>, BrandRepository>("brandRepository");
 
 // Entity Framework
 builder.Services.AddDbContext<StoreContext>(options =>

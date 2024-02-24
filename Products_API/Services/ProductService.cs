@@ -7,7 +7,7 @@ namespace Products_API.Services
     public class ProductService : ICommonService<ProductDto>
     {
         private IRepository<Product> _repository;
-        public ProductService(IRepository<Product> repository)
+        public ProductService([FromKeyedServices("productRepository")]IRepository<Product> repository)
         {
             _repository = repository;
         }
