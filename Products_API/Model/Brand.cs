@@ -9,5 +9,10 @@ namespace Products_API.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public static implicit operator int(Brand? v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

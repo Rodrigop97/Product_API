@@ -13,6 +13,6 @@ namespace Products_API.Model
         public decimal Price { get; set; }
         public int BrandId { get; set; }
         [ForeignKey("BrandId")]
-        public virtual Brand Brand { get; set; }
+        public Brand Brand { get; set; }
     }
 }

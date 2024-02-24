@@ -11,11 +11,15 @@ namespace Products_API.Services
         {
             _brandRepository = brandRepository;
         }
-        public async Task Add(BrandDto brandDto)
+        public async Task<bool> Add(BrandDto brandDto)
         {
             Brand brand = new Brand{ Name = brandDto.Name };
             await _brandRepository.Add(brand);
             await _brandRepository.Save();
+
+
+            // COMPLETAR EL CASO DONDE FALLA EL AGREGAR
+            return true;
         }
 
         public Task Delete(int id)

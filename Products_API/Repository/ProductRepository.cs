@@ -13,10 +13,12 @@ namespace Products_API.Repository
         }
 
         public async Task<IEnumerable<Product>> Get()
-            => await _storeContext.Products.ToListAsync();
+            => await _storeContext.Products.Include(p => p.Brand).ToListAsync();
+        //=> await _storeContext.Products.ToListAsync();
 
         public async Task<Product> GetById(int id)
-            => await _storeContext.Products.FindAsync(id);
+            => await _storeContext.Products.Include(p => p.Brand).FirstAsync(p => p.Id == id);
+        //=> await _storeContext.Products.FindAsync(id);
 
         public async Task Add(Product product)
             => await _storeContext.Products.AddAsync(product);

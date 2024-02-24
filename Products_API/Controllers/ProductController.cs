@@ -30,8 +30,9 @@ namespace Products_API.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ProductDto productDto)
         {
-            await _productService.Add(productDto);
-            return Ok();
+            if (await _productService.Add(productDto))
+                return Ok();
+            return BadRequest();
         }
 
         [HttpPut("{id}")]

@@ -13,7 +13,7 @@ namespace Products_API.Services
             _repository = repository;
         }
 
-        public async Task Add(ProductDto productDto)
+        public async Task<bool> Add(ProductDto productDto)
         {
             Product product = new Product
             {
@@ -25,11 +25,11 @@ namespace Products_API.Services
             {
                 await _repository.Add(product);
                 await _repository.Save();
+                return true;
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                return false;
             }
         }
 
@@ -40,7 +40,8 @@ namespace Products_API.Services
             {
                 Name = p.Name,
                 Price = p.Price,
-                BrandId = p.BrandId
+                BrandId = p.BrandId,
+                BrandDesc = p.Brand.Name
             });
         }
 
@@ -51,7 +52,8 @@ namespace Products_API.Services
             {
                 Name = product.Name,
                 Price = product.Price,
-                BrandId = product.BrandId
+                BrandId = product.BrandId,
+                BrandDesc = product.Brand.Name
             };
         }
 
