@@ -21,5 +21,16 @@ namespace Products_API.Services
                 BrandId = p.BrandId
             });
         }
+
+        public async Task<ProductDto> GetById(int id)
+        {
+            var product = await _repository.GetById(id);
+            return new ProductDto
+            {
+                Name = product.Name,
+                Price = product.Price,
+                BrandId = product.BrandId
+            };
+        }
     }
 }

@@ -11,8 +11,24 @@ namespace Products_API.Repository
         {
             _storeContext = storeContext;
         }
+
+        public async Task Add(Product product)
+            => await _storeContext.AddAsync(product);
+
+        public void Delete(Product entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<Product>> Get()
             => await _storeContext.Products.ToListAsync();
 
+        public async Task<Product> GetById(int id)
+            => await _storeContext.Products.FirstAsync(x => x.Id == id);
+
+        public void Update(Product entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
