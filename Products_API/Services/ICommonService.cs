@@ -6,5 +6,6 @@ namespace Products_API.Services
     {
         Task<IEnumerable<DTO>> Get();
         Task<DTO> GetById(int id);
+        Task Add(DTO dto);
     }
 }

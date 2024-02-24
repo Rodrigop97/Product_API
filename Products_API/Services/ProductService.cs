@@ -11,6 +11,19 @@ namespace Products_API.Services
         {
             _repository = repository;
         }
+
+        public async Task Add(ProductDto productDto)
+        {
+            Product product = new Product
+            {
+                Name = productDto.Name,
+                Price = productDto.Price,
+                BrandId = productDto.BrandId
+            };
+            await _repository.Add(product);
+            await _repository.Save();
+        }
+
         public async Task<IEnumerable<ProductDto>> Get()
         {
             var products = await _repository.Get();

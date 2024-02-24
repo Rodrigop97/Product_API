@@ -19,11 +19,19 @@ namespace Products_API.Controllers
         [HttpGet]
         public async Task<IEnumerable<ProductDto>> Get()
             => await _productService.Get();
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDto>> GetById(int id)
         {
             var product = await _productService.GetById(id);
-            return product == null ? BadRequest() : Ok(product);
+            return product == null ? NotFound() : Ok(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(ProductDto productDto)
+        {
+            await _productService.Add(productDto);
+            return Ok();
         }
     }
 }
