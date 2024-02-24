@@ -1,9 +1,17 @@
 using Microsoft.EntityFrameworkCore;
+using Products_API.DTOs;
 using Products_API.Model;
+using Products_API.Repository;
+using Products_API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddKeyedScoped<ICommonService<ProductDto>, ProductService>("productService");
+
+// Repository
+builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
 
 // Entity Framework
 builder.Services.AddDbContext<StoreContext>(options =>
