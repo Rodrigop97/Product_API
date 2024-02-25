@@ -9,8 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddKeyedScoped<ICommonService<ProductDto>, ProductService>("productService");
-builder.Services.AddKeyedScoped<ICommonService<BrandDto>, BrandService>("brandService");
+builder.Services.AddKeyedScoped<ICommonService<ProductDto, ProductEditDto>, ProductService>("productService");
+builder.Services.AddKeyedScoped<ICommonService<BrandDto, BrandDto>, BrandService>("brandService");
 
 // Repository
 builder.Services.AddKeyedScoped<IRepository<Product>, ProductRepository>("productRepository");

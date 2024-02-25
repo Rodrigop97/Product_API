@@ -2,12 +2,12 @@
 
 namespace Products_API.Services
 {
-    public interface ICommonService<DTO>
+    public interface ICommonService<DTO, UDTO>
     {
         Task<IEnumerable<DTO>> Get();
         Task<DTO> GetById(int id);
-        Task<bool> Add(DTO dto);
-        Task<bool> Update(int id, DTO dto);
+        Task<bool> Add(UDTO dto);
+        Task<bool> Update(int id, UDTO dto);
         Task<bool> Delete(int id);
     }
 }

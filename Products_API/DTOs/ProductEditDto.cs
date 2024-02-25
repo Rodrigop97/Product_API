@@ -1,9 +1,9 @@
 ﻿namespace Products_API.DTOs
 {
-    public class ProductDto
+    public class ProductEditDto
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public string BrandDesc { get; set; }
+        public int BrandId { get; set; }
     }
 }

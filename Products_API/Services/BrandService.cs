@@ -1,30 +1,16 @@
-﻿using Products_API.DTOs;
+﻿using Microsoft.VisualBasic;
+using Products_API.DTOs;
 using Products_API.Model;
 using Products_API.Repository;
 
 namespace Products_API.Services
 {
-    public class BrandService : ICommonService<BrandDto>
+    public class BrandService : ICommonService<BrandDto, BrandDto>
     {
         private IRepository<Brand> _brandRepository;
         public BrandService([FromKeyedServices("brandRepository")]IRepository<Brand> brandRepository)
         {
             _brandRepository = brandRepository;
-        }
-        public async Task<bool> Add(BrandDto brandDto)
-        {
-            Brand brand = new Brand{ Name = brandDto.Name };
-            await _brandRepository.Add(brand);
-            await _brandRepository.Save();
-
-
-            // COMPLETAR EL CASO DONDE FALLA EL AGREGAR
-            return true;
-        }
-
-        public Task Delete(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public Task<IEnumerable<BrandDto>> Get()
@@ -32,24 +18,55 @@ namespace Products_API.Services
             throw new NotImplementedException();
         }
 
-        public Task<BrandDto> GetById(int id)
+        public async Task<BrandDto> GetById(int id)
         {
-            throw new NotImplementedException();
+            Brand brand = await _brandRepository.GetById(id);
+            BrandDto brandDto = new BrandDto
+            {
+                Name = brand.Name
+            };
+            return brandDto;
         }
 
-        public Task Update(int id, BrandDto dto)
+        public async Task<bool> Add(BrandDto brandDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Brand brand = new Brand{ Name = brandDto.Name };
+                await _brandRepository.Add(brand);
+                await _brandRepository.Save();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        
+        public async Task<bool> Update(int id, BrandDto brandDto)
+        {
+            Brand brand = await _brandRepository.GetById(id);
+            if (brand != null)
+            {
+                brand.Name = brandDto.Name;
+                _brandRepository.Update(brand);
+                await _brandRepository.Save();
+                return true;
+            }
+            return false;
         }
 
-        Task<bool> ICommonService<BrandDto>.Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            Brand brand = await _brandRepository.GetById(id);
+            if (brand != null)
+            {
+                _brandRepository.Delete(brand);
+                await _brandRepository.Save();
+                return true;
+            }
+            return false;
         }
 
-        Task<bool> ICommonService<BrandDto>.Update(int id, BrandDto dto)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

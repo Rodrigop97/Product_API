@@ -10,9 +10,9 @@ namespace Products_API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private ICommonService<ProductDto> _productService;
+        private ICommonService<ProductDto, ProductEditDto> _productService;
         public ProductController(
-            [FromKeyedServices("productService")]ICommonService<ProductDto> productService)
+            [FromKeyedServices("productService")]ICommonService<ProductDto, ProductEditDto> productService)
         {
             _productService = productService;
         }
@@ -28,17 +28,17 @@ namespace Products_API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(ProductDto productDto)
+        public async Task<IActionResult> Add(ProductEditDto productEditDto)
         {
-            if (await _productService.Add(productDto))
+            if (await _productService.Add(productEditDto))
                 return Ok();
             return BadRequest();
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, ProductDto productDto)
+        public async Task<IActionResult> Update(int id, ProductEditDto productEditDto)
         {
-            if (await _productService.Update(id, productDto))
+            if (await _productService.Update(id, productEditDto))
                 return Ok();
             return BadRequest();
         }
